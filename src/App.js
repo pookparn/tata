@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-class App extends Component {
+import React from 'react'
+import NavBar from './components/Navbars/Navbar'
+import Onetable from './components/Tables/Onetable'
+import Tabletwo from './components/Tables/Tabletwo'
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <NavBar />
+        <Onetable />
+        <Tabletwo />
+        APPss
       </div>
-    );
+    )
   }
 }
-
-export default App;
+export default App
