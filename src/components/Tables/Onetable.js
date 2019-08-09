@@ -12,6 +12,11 @@ export default function MaterialTableDemo() {
         field: 'birthCity',
         lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
       },
+      {
+        title: 'test',
+        field: 'test',
+        type: 'select',
+      }
     ],
     data: [
       { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
