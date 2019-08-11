@@ -6,11 +6,12 @@ import App from './App'
 import Users from './users'
 import Contact from './contact'
 import Notfound from './notfound'
+import Alert from './Layout/Alert'
 const routing = (
   <Router>
     <div>
       <Switch>
-        <Route exact path="/" component={App} />
+        <Route exact path="/" component={Alert} />
         <Route path="/users" component={Users} />
         <Route path="/contact" component={Contact} />
         <Route component={Notfound} />

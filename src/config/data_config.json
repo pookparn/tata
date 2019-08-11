@@ -1,0 +1,48 @@
+{
+    "issueTypes" : [
+        { "id": "bug", "value": "Bug" },
+        { "id": "epic", "value": "Epic" },
+        { "id": "story", "value": "Story" }
+      ],
+    "car_model" : [
+        {"id": "SC-CNG", "value": "SC-CNG"},
+        {"id": "HD-CNG", "value": "HD-CNG"},
+        {"id": "Max-CNG", "value": "Max CNG"},
+        {"id": "X-Tend-CLE", "value": "X-Tend CLE"},
+        {"id": "SC-DLE", "value": "SC-DLE"},
+        {"id": "140-HD-DLE", "value": "140 HD-DLE"},
+        {"id": "150NX-Pert-HD-4x2", "value": "150NX-Pert HD 4x2"},
+        {"id": "150NX-Pert-4x4", "value": "150NX-Pert 4x4"},
+        {"id": "Max-CAB", "value": "Max CAB"},
+        {"id": "X-Tend-DLS", "value": "X-Tend DLS"},
+        {"id": "Super-ACE", "value": "Super ACE"},
+        {"id": "Super-ACE-Mint", "value": "Super ACE Mint"},
+        {"id": "Double-Cab-DLE ", "value": "Double Cab DLE "},
+        {"id": "Double-Cab-DLE-150NX-Treme-4x2", "value": "Double Cab DLE 150NX-Treme 4x2"},
+        {"id": "Double-Cab-DLE-150NX-Plore-4x4", "value": "Double Cab DLE 150NX-Plore 4x4"}
+    ],
+    "alert_status" : [
+        {"id": "SC-CNG", "value": "ติดตามงานบริการ (ไม่พบปัญหา)"},
+        {"id": "HD-CNG", "value": "ติดตามงานบริการ (พบปัญหา)"},
+        {"id": "Max-CNG", "value": "แจ้งทราบแล้ว"},
+        {"id": "X-Tend-CLE", "value": "ลูกค้าไม่รับสาย/ ไม่สะดวกคุย"},
+        {"id": "SC-DLE", "value": "ยังไม่ได้แจ้งเตือน"}
+    ],
+    "service_type" :[
+        {"id": "0", "value": "ออกรถใหม่"},
+        {"id": "1", "value": "เช็คระยะ"},
+        {"id": "2", "value": "งานซ่อมทั่วไป"},
+        {"id": "3", "value": "งานซ่อมซ้ำ"},
+        {"id": "4", "value": "การรับประกันคุณภาพ (Warranty)"},
+        {"id": "5", "value": "งานซ่อมจากการติดตาม"}
+    ],
+    "alert_level" :[
+        {"id": "0", "value": "LV 0 ไม่ต้องแจ้งเตือน"},
+        {"id": "1", "value": "LV 1 เตือนครั้งเดียว"},
+        {"id": "2", "value": "LV 2 เตือนทุก 3 เดือน"},
+        {"id": "3", "value": "LV 3 เตือนทุก 1 เดือน"},
+        {"id": "4", "value": "LV 4 เตือนทุก 2 อาทิตย์"},
+        {"id": "5", "value": "LV 5 เตือนทุก 1 อาทิตย์"}
+    ]
+}
+

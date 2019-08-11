@@ -24,7 +24,7 @@ const NavBar = () => {
         <AppBar position="static" style={{ background: '#0277bd'}}>
             <Toolbar>
                 <Button color="inherit" href="/" className={classes.button}>
-                    Search
+                    การแจ้งเตือน
                 </Button>
                 <Button color="inherit" href="/users" className={classes.button}>
                     Users
