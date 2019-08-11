@@ -1,1 +1,1 @@
-forever start --sourceDir /root/project/web/tata -c "npm start" /
+forever start --sourceDir ./ -c "npm start" /
