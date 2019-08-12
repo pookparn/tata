@@ -4,7 +4,7 @@ class Users extends React.Component {
     render() { 
         return <div>
         <NavBar />
-        users
+        ข้อมูลลูกค้า
       </div>
     } 
 } 

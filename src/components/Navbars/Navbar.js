@@ -24,13 +24,13 @@ const NavBar = () => {
         <AppBar position="static" style={{ background: '#0277bd'}}>
             <Toolbar>
                 <Button color="inherit" href="/" className={classes.button}>
-                    การแจ้งเตือน
+                    รายการติดตาม
                 </Button>
                 <Button color="inherit" href="/users" className={classes.button}>
-                    Users
+                    ข้อมูลลูกค้า
                 </Button>
                 <Button color="inherit" href="/contact" className={classes.button}>
-                    Contact
+                    ข้อมูลรถ
                 </Button>
             </Toolbar>
         </AppBar>

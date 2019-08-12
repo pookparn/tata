@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://tata:SonyA7iii@localhost:27017/tata?authSource=admin', { useNewUrlParser: true })
+mongoose.connect('mongodb://tata:SonyA7iii@157.230.249.126:27017/tata?authSource=admin', { useNewUrlParser: true })
 
 var db = mongoose.connection;
 var Schema = mongoose.Schema,
@@ -56,7 +56,7 @@ module.exports.car = mongoose.model('car', carSchema)
 var servicehistSchema = new Schema({
         "_id": Schema.Types.ObjectId,
         "car_id": { type: Schema.Types.ObjectId, ref: "car" },
-        "owener_id": { type: Schema.Types.ObjectId, ref: "owner" },
+        "owner_id": { type: Schema.Types.ObjectId, ref: "owner" },
         "service_entry_km": Number,
         "service_out_km": Number,
         "service_type": String,
@@ -66,11 +66,68 @@ var servicehistSchema = new Schema({
         "mechanic": String,
         "entry_dt": Date,
         "out_dt": Date,
-        "inform_lv": Number,
-        "inform_desc": String,
-        "inform_status": String,
+        "alert_lv": String,
+        "alert_desc": String,
+        "alert_status": String,
         "update_by": String,
         "remark": String
 }, { collection: "service_history" })
 module.exports.servicehist = mongoose.model('servicehist', servicehistSchema)
 
+
+
+
+const dateformat = require('dateformat');
+var lastWeek = new Date();
+lastWeek.setDate(lastWeek.getDate() -7);
+
+this.servicehist.find({service_type:{$ne:"เช็คระยะ"},
+                          out_dt:{"$lte": lastWeek}, 
+                          $or:[{alert_status:"ยังไม่ได้แจ้งเตือน"},{alert_status:"ลูกค้าไม่รับสาย/ ไม่สะดวกคุย"}]
+                        })
+.populate("owner_id car_id")
+.lean()
+.exec(function (err, servHistData) {
+   //console.log(servHistData)
+//    var date = new Date("04/20/2019")
+//    console.log(date)
+
+
+//    console.log(">>>>>",dateformat(servHistData.out_dt, 'dd-mm-yyyy'))
+   var result = []
+   if(servHistData.length > 0){
+        servHistData.map((onedata,index)=>{
+                result.push(
+                        {       _id: onedata._id, 
+                                ser_out_dt: dateformat(onedata.out_dt, 'dd-mm-yyyy'), 
+                                company: onedata.owner_id.business_name, 
+                                lice_pl: onedata.car_id.license_plate, 
+                                model: onedata.car_id.model, 
+                                cont1:onedata.owner_id.contact.first_contact_name, 
+                                tel1:onedata.owner_id.contact.first_contact_tel, 
+                                cont2:onedata.owner_id.contact.second_contact_name, 
+                                tel2:onedata.owner_id.contact.second_contact_tel, 
+                                ser_fix_no:onedata.service_fix_no, 
+                                ser_type:onedata.service_type,
+                                km_out:onedata.service_out_km, 
+                                month_alert_no:"month_alert_no", 
+                                problem:onedata.service_fix_desc, 
+                                alert_level:onedata.alert_lv, 
+                                alert_detail:onedata.alert_desc,
+                                alert_status:onedata.alert_status,
+                                remark:onedata.remark
+                        }
+                )
+        })
+   }
+
+
+   console.log(result)
+})
+//    var date = new Date("04/20/2019")
+//    console.log(date)
+// this.servicehist.updateOne({_id: "5d4ae1a04534184c2ec5279b"},{$set:{entry_dt:date,out_dt:date}})
+// .exec(function (err, resp) {
+//      console.log(err)
+//      console.log(resp)
+// })

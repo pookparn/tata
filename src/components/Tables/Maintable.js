@@ -6,7 +6,7 @@ import { Editors } from "react-data-grid-addons";
 import "./styles.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from '@material-ui/core/Button';
-
+import axios from 'axios'
 var dataConf = require('../../config/data_config.json')
 
 const COLUMN_WIDTH = 140; 
@@ -38,16 +38,16 @@ const defaultColumnProperties = {
 
 const columns = [ 
   { key: "id", name: "ลำดับ",frozen: true,width: 50},
-  { key: "ser_out_dt", name: "วันที่รับรถ" ,frozen: true,width: 90},
+  { key: "ser_out_dt", name: "วันที่รับรถ" ,frozen: true,width: 100},
   { key: "company", name: "บริษัท" ,frozen: true,width: 240},
   { key: "lice_pl", name: "ทะเบียน" ,frozen: true,width: 80},
   { key: "model", name: "รุ่นรถ" ,frozen: true, width: 120},
   { key: "cont1", name: "ผู้ติดต่อ 1",width:100},
-  { key: "tel1", name: "เบอร์โทร 1" , width: 90},
+  { key: "tel1", name: "เบอร์โทร 1" , width: 100},
   { key: "cont2", name: "ผู้ติดต่อ 2" ,width:100},
-  { key: "tel2", name: "เบอร์โทร 2" , width: 90},
-  { key: "ser_hist_no", name: "เลขการบริการ" , width: 100},
-  { key: "ser_type", name: "ประเภทบริการ" ,width:100},
+  { key: "tel2", name: "เบอร์โทร 2" , width: 100},
+  { key: "ser_fix_no", name: "ใบสั่งซ่อม" , width: 80},
+  { key: "ser_type", name: "ประเภทบริการ" ,width:150},
   { key: "km_out", name: "เลขกิโลออก" ,width:90},
   { key: "month_alert_no", name: "จำนวนเดือนติดตาม" ,width:150},
   { key: "problem", name: "อาการที่พบ" ,width:400},
@@ -58,25 +58,30 @@ const columns = [
   //{ key: "issueType", name: "Task Type", editor: IssueTypeEditor }
 ].map(c => ({ ...c, ...defaultColumnProperties }));
 
-const rows = [
-  { id: 1, ser_out_dt: "10/05/2019", company: "บจก. ที.พี.ดรัก แลบบอราทอรี่ส์ (1969)", lice_pl: "7กฌ 343", model: "150NX-Pert HD 4x2", 
-  cont1:"cont1", tel1:"0614155453", cont2:"cont2", tel2:"tel2", ser_hist_no:"ser_hist_no", ser_type:"ser_type",
-  km_out:"1,234,567", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
-  alert_status:"alert_status",remark:"remark",issueType: "Bug"},
-  { id: 2, ser_out_dt: "10/05/2019", company: "Bug", lice_pl: "7กฌ 343", model: "model", 
-  cont1:"cont1", tel1:"tel1", cont2:"cont2", tel2:"tel2", ser_hist_no:"ser_hist_no", ser_type:"ser_type",
-  km_out:"km_out", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
-  alert_status:"alert_status",remark:"remark",issueType: "Story"},
-  { id: 3, ser_out_dt: "10/05/2019", company: "บจก. ที.พี.ดรัก แลบบอราทอรี่ส์ (1969)", lice_pl: "7กฌ 343", model: "150NX-Pert HD 4x2", 
-  cont1:"cont1", tel1:"0614155453", cont2:"cont2", tel2:"tel2", ser_hist_no:"ser_hist_no", ser_type:"ser_type",
-  km_out:"1,234,567", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
-  alert_status:"alert_status",remark:"remark",issueType: "Bug"},
-  { id: 4, ser_out_dt: "10/05/2019", company: "Bug", lice_pl: "7กฌ 343", model: "model", 
-  cont1:"cont1", tel1:"tel1", cont2:"cont2", tel2:"tel2", ser_hist_no:"ser_hist_no", ser_type:"ser_type",
-  km_out:"km_out", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
-  alert_status:"alert_status",remark:"remark",issueType: "Story"},
+var rows = []
+
+
+
+
+// const rows = [
+//   { id: 1, ser_out_dt: "10/05/2019", company: "บจก. ที.พี.ดรัก แลบบอราทอรี่ส์ (1969)", lice_pl: "7กฌ 343", model: "150NX-Pert HD 4x2", 
+//   cont1:"cont1", tel1:"0614155453", cont2:"cont2", tel2:"tel2", ser_fix_no:"ser_fix_no", ser_type:"ser_type",
+//   km_out:"1,234,567", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
+//   alert_status:"alert_status",remark:"remark",issueType: "Bug"},
+//   { id: 2, ser_out_dt: "10/05/2019", company: "Bug", lice_pl: "7กฌ 343", model: "model", 
+//   cont1:"cont1", tel1:"tel1", cont2:"cont2", tel2:"tel2", ser_fix_no:"ser_fix_no", ser_type:"ser_type",
+//   km_out:"km_out", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
+//   alert_status:"alert_status",remark:"remark",issueType: "Story"},
+//   { id: 3, ser_out_dt: "10/05/2019", company: "บจก. ที.พี.ดรัก แลบบอราทอรี่ส์ (1969)", lice_pl: "7กฌ 343", model: "150NX-Pert HD 4x2", 
+//   cont1:"cont1", tel1:"0614155453", cont2:"cont2", tel2:"tel2", ser_fix_no:"ser_fix_no", ser_type:"ser_type",
+//   km_out:"1,234,567", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
+//   alert_status:"alert_status",remark:"remark",issueType: "Bug"},
+//   { id: 4, ser_out_dt: "10/05/2019", company: "Bug", lice_pl: "7กฌ 343", model: "model", 
+//   cont1:"cont1", tel1:"tel1", cont2:"cont2", tel2:"tel2", ser_fix_no:"ser_fix_no", ser_type:"ser_type",
+//   km_out:"km_out", month_alert_no:"month_alert_no", problem:"problem", alert_level:"alert_level", alert_detail:"alert_detail",
+//   alert_status:"alert_status",remark:"remark",issueType: "Story"},
   
-];
+// ];
 
 const EmptyRowsView = () => {
   const message = "No data to show";
@@ -97,8 +102,20 @@ class Maintable extends React.Component {
   onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
     this.setState(state => {
       const rows = state.rows.slice();
+      // if(rows[fromRow].indexOf(updated) > -1){
+      //   console.log("UPDATEDDDDD")
+      // }
+      console.log(Object.keys(updated))
+      Object.keys(updated).map((val,index)=>{
+        console.log(index,val)
+        if(rows[fromRow][val] != updated[val]){
+          console.log("UPDATEDDDDD",rows[fromRow][val],updated[val])
+        }
+      })
       for (let i = fromRow; i <= toRow; i++) {
         rows[i] = { ...rows[i], ...updated };
+        //console.log({ ...rows[i], ...updated })
+        console.log(updated)
       }
       console.log(fromRow,toRow)
       console.log(updated)
@@ -107,16 +124,44 @@ class Maintable extends React.Component {
     });
   };
 
-  onClickUpdate= () => {
+  onClickUpdate= ({ fromRow, toRow, updated }) => {
+    this.setState(state => {
+      const rows = state.rows.slice();
+      updated = {"id":"5555"}
+      console.log({ ...rows[0], ...updated })
+      rows[0] = { ...rows[0], ...updated };
+      return { rows };
+    });
     console.log(this.props.alert_type)
     console.log(this.state)
   };
+
+  componentDidMount () {
+    console.log("MAIN")
+    axios.get('http://localhost:8788/alertlist')
+    //.then(response => this.setState({rows}))
+    .then(response =>{
+       console.log(response.data)
+       this.setState(state => {
+        const rows = state.rows.slice();
+        if(this.state.rows.length == 0){
+          for (let i = 0; i < response.data.length; i++) {
+            
+            rows[i] = { ...rows[i], ...response.data[i],...{"id":i+1} };
+            //console.log({ ...rows[i], ...updated })
+          }
+        }
+        return { rows };
+      });
+    })
+    console.log(rows)
+  }
 
   render() {
     return (
       <div>
         <div><h2>
-                รายการแจ้งเตือน {this.props.alert_type}
+                รายการติดตาม {this.props.alert_type}
                 <Button onClick={this.onClickUpdate} variant="outlined" size="large" color="primary" style={{ marginLeft:"1rem"}}>
                     อัพเดทข้อมูล
                 </Button>
