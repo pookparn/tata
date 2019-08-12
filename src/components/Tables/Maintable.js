@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import ReactDataGrid from "react-data-grid";
 import { Editors } from "react-data-grid-addons";
 
@@ -9,9 +9,9 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios'
 var dataConf = require('../../config/data_config.json')
 
-const COLUMN_WIDTH = 140; 
+// const COLUMN_WIDTH = 140; 
 const { DropDownEditor } = Editors;
-const issueTypes = dataConf.issueTypes
+// const issueTypes = dataConf.issueTypes
 
 const alertStatuslEditor = <DropDownEditor options={dataConf.alert_status} />;
 const alertLevellEditor = <DropDownEditor options={dataConf.alert_level} />;
@@ -108,7 +108,7 @@ class Maintable extends React.Component {
       console.log(Object.keys(updated))
       Object.keys(updated).map((val,index)=>{
         console.log(index,val)
-        if(rows[fromRow][val] != updated[val]){
+        if(rows[fromRow][val] !== updated[val]){
           console.log("UPDATEDDDDD",rows[fromRow][val],updated[val])
         }
       })
@@ -144,7 +144,7 @@ class Maintable extends React.Component {
        console.log(response.data)
        this.setState(state => {
         const rows = state.rows.slice();
-        if(this.state.rows.length == 0){
+        if(this.state.rows.length === 0){
           for (let i = 0; i < response.data.length; i++) {
             
             rows[i] = { ...rows[i], ...response.data[i],...{"id":i+1} };
