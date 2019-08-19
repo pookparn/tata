@@ -1,34 +1,31 @@
 {
-    "issueTypes" : [
-        { "id": "bug", "value": "Bug" },
-        { "id": "epic", "value": "Epic" },
-        { "id": "story", "value": "Story" }
-      ],
-    "car_model" : [
-        {"id": "SC-CNG", "value": "SC-CNG"},
-        {"id": "HD-CNG", "value": "HD-CNG"},
-        {"id": "Max-CNG", "value": "Max CNG"},
-        {"id": "X-Tend-CLE", "value": "X-Tend CLE"},
-        {"id": "SC-DLE", "value": "SC-DLE"},
-        {"id": "140-HD-DLE", "value": "140 HD-DLE"},
-        {"id": "150NX-Pert-HD-4x2", "value": "150NX-Pert HD 4x2"},
-        {"id": "150NX-Pert-4x4", "value": "150NX-Pert 4x4"},
-        {"id": "Max-CAB", "value": "Max CAB"},
-        {"id": "X-Tend-DLS", "value": "X-Tend DLS"},
-        {"id": "Super-ACE", "value": "Super ACE"},
-        {"id": "Super-ACE-Mint", "value": "Super ACE Mint"},
-        {"id": "Double-Cab-DLE ", "value": "Double Cab DLE "},
-        {"id": "Double-Cab-DLE-150NX-Treme-4x2", "value": "Double Cab DLE 150NX-Treme 4x2"},
-        {"id": "Double-Cab-DLE-150NX-Plore-4x4", "value": "Double Cab DLE 150NX-Plore 4x4"}
-    ],
-    "alert_status" : [
-        {"id": "0", "value": "ติดตามงานบริการ (ไม่พบปัญหา)"},
-        {"id": "1", "value": "ติดตามงานบริการ (พบปัญหา)"},
-        {"id": "2", "value": "แจ้งทราบแล้ว"},
-        {"id": "3", "value": "ลูกค้าไม่รับสาย/ ไม่สะดวกคุย"},
-        {"id": "4", "value": "ยังไม่ได้แจ้งเตือน"},
-        {"id": "5", "value": "เลิกติดตาม"}
-    ],
+    "car_model" : {
+        "SC-CNG":"SC-CNG",
+        "HD-CNG":"HD-CNG",
+        "Max-CNG" : "Max CNG",
+        "X-Tend-CLE" : "X-Tend CLE",
+        "SC-DLE" : "SC-DLE",
+        "140-HD-DLE" : "140 HD-DLE",
+        "150NX-Pert-HD-4x2" : "150NX-Pert HD 4x2",
+        "150NX-Pert-4x4" : "150NX-Pert 4x4",
+        "Max-CAB" : "Max CAB",
+        "X-Tend-DLS" : "X-Tend DLS",
+        "Super-ACE" : "Super ACE",
+        "Super-ACE-Mint" : "Super ACE Mint",
+        "Double-Cab-DLE" : "Double Cab DLE",
+        "Double-Cab-DLE-150NX-Treme-4x2" : "Double Cab DLE 150NX-Treme 4x2",
+        "Double-Cab-DLE-150NX-Plore-4x4" : "Double Cab DLE 150NX-Plore 4x4"
+    },
+    
+    "alert_status" : {
+        "ติดตามงานบริการ (ไม่พบปัญหา)": "ติดตามงานบริการ (ไม่พบปัญหา)",
+        "ติดตามงานบริการ (พบปัญหา)": "ติดตามงานบริการ (พบปัญหา)",
+        "แจ้งทราบแล้ว": "แจ้งทราบแล้ว",
+        "ลูกค้าไม่รับสาย/ไม่สะดวกคุย": "ลูกค้าไม่รับสาย/ไม่สะดวกคุย",
+        "ยังไม่ได้แจ้งเตือน": "ยังไม่ได้แจ้งเตือน",
+        "เลิกติดตาม": "เลิกติดตาม"
+    },
+    
     "service_type" :[
         {"id": "0", "value": "ออกรถใหม่"},
         {"id": "1", "value": "เช็คระยะ"},

@@ -35,16 +35,34 @@ export default function MaterialTableDemo(props) {
 
   var rows = props.testdata
   console.log("55555",col)
-  //console.log("66666",rows)
+  console.log("66666",rows)
   const [state, setState] = React.useState({
     columns : col,
-    data : props.testdata
+    // columns: [
+    //   { title: 'Name', field: 'name', editable: 'never', cellStyle: { textAlign: "center", fontSize: '14px', width: 200 } },
+    //   { title: 'Surname', field: 'surname' },
+    //   { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
+    //   {
+    //     title: 'Birth Place',
+    //     field: 'birthCity',
+    //     lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+    //   },
+    //   {
+    //     title: 'test',
+    //     field: 'test',
+    //     lookup: { "a": 'a', "b": 'b' }
+    //   }
+    // ],
+    data : rows
+    // data: [
+    //   { name: 'อุดมวรรณ', surname: 'Baran', birthYear: 1987, birthCity: 63, test: "a" },
+    //   { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34, test: "b" },
+    // ],
   });
- 
+
   var title = "รายการติดตาม " + props.alert_type
   return (
     <div style={{ maxWidth: "99%" }}>
-      {console.log("gggg",state.data)}
       <MaterialTable
         title={title}
         columns={state.columns}
