@@ -19,12 +19,12 @@ const col = [
     { field: "ser_fix_no", title: "ใบสั่งซ่อม", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
     { field: "ser_type", title: "ประเภทบริการ", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
     { field: "km_out", title: "เลขกิโลออก", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-    { field: "month_alert_no", title: "จำนวนเดือนติดตาม", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-    { field: "problem", title: "อาการที่พบ", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-    { field: "alert_level", title: "การแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 } },
-    { field: "alert_detail", title: "รายละเอียดการแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-    { field: "alert_status", title: "สถานะการแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, lookup: config.alert_status },
-    { field: "remark", title: "หมายเหตุ", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 } },
+    //{ field: "month_alert_no", title: "จำนวนเดือนติดตาม", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
+    { field: "problem", title: "อาการที่พบ", cellStyle: { textAlign: "center", fontSize: '13px', width: 1500 }, editable: 'never' },
+    { field: "alert_level", title: "การแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px', width: 1500 } },
+    { field: "alert_detail", title: "รายละเอียดการแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px', width: 1000 }, editable: 'never' },
+    { field: "alert_status", title: "สถานะการแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px', width: 1000 }, lookup: config.alert_status },
+    { field: "remark", title: "หมายเหตุ", cellStyle: { textAlign: "center", fontSize: '13px', width: 1000 } },
     //{ field: "issueType", title: "Task Type", editor: IssueTypeEditor }
 ]
 
@@ -59,6 +59,7 @@ class Testtable extends Component {
                     let i =1
                     response.data.map((onedata)=>{
                         response.data[i-1].id = i
+                        response.data[i-1].updFlag = false
                     })
                 }
                 this.setState({
@@ -75,7 +76,7 @@ class Testtable extends Component {
                     columns={col}
                     data={this.state.data}
                     title={title}
-
+                    onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
                     options={{
                         headerStyle: {
                             fontSize: '15px',
@@ -83,15 +84,30 @@ class Testtable extends Component {
                             padding: '20px'
                         },
                         showTitle: true,
-                        exportButton: true
+                        exportButton: true,
+                        rowStyle: rowData => ({
+                            backgroundColor: (rowData.updFlag) ? '#bfefff' : '#FFF'
+                        })
                     }}
-
+                    detailPanel={rowData => {
+                        return (
+                            <iframe
+              width="100%"
+              height="315"
+              src="https://www.youtube.com/embed/C0DPdy98e4c"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+                        )
+                    }}
                     editable={{
                         onRowUpdate: (newData, oldData) =>
                             new Promise(resolve => {
                                 setTimeout(() => {
                                     resolve();
                                     const data = [...this.state.data];
+                                    newData.updFlag = true
                                     data[data.indexOf(oldData)] = newData;
                                     this.setState({ ...this.state, data });
                                     console.log("newData>>>>", newData)
