@@ -19,7 +19,7 @@ class Alert extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         <NavBar />
         <div>
           <Testtable alert_type="งานซ่อม  (7 วัน)" tab_no="1" />
