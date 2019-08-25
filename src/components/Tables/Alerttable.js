@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import MaterialTable from 'material-table'
+import MaterialTable, { MTableToolbar } from 'material-table'
 import axios from 'axios'
 
 import config from '../../config/data_config.json'
@@ -12,6 +12,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
+
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import DoneIcon from '@material-ui/icons/Done';
+import CallMissedOutgoingIcon from '@material-ui/icons/CallMissedOutgoing';
+import UndoIcon from '@material-ui/icons/Undo';
+import PhoneMissedIcon from '@material-ui/icons/PhoneMissed';
+import BlockIcon from '@material-ui/icons/Block';
+import Button from '@material-ui/core/Button';
 
 var rs = require("randomstring");
 
@@ -56,6 +66,17 @@ let CssTextField3 = withStyles(theme => ({
     },
 }))(InputBase);
 
+let CssTextField4 = withStyles(theme => ({
+    input: {
+        width: '230px',
+        fontSize: 14,
+        position: 'relative',
+        textAlign: 'left',
+        color: 'transpalent',
+
+    },
+}))(InputBase);
+
 class Testtable extends Component {
     constructor(props) {
         super(props);
@@ -65,6 +86,7 @@ class Testtable extends Component {
             firstData: [],
             othervalue: "XXXXX"
         };
+        this.updatelist = []
         this.col = [
             { field: "id", title: "ลำดับ", cellStyle: { textAlign: "center", fontSize: '13px', width: 10 } },
             {
@@ -75,7 +97,7 @@ class Testtable extends Component {
             },
             {
                 field: "company", title: "บริษัท", render: rowData => {
-                    return (<CssTextField2 defaultValue={rowData.company} inputProps={{
+                    return (<CssTextField2 multiline={true} defaultValue={rowData.company} inputProps={{
                         readOnly: true
 
                     }} />)
@@ -99,9 +121,15 @@ class Testtable extends Component {
             },
             {
                 field: "cont1", title: "ผู้ติดต่อ", cellStyle: { textAlign: "left", fontSize: '13px', width: 1500 }, editable: 'never',
-                render: rowData => <div>
-                    {rowData.cont1.split("|")[0]} <br /> {rowData.cont1.split("|")[1]}
-                </div>
+                render: rowData => {
+                    return (<CssTextField4 multiline={true} defaultValue={rowData.cont1} inputProps={{
+                        readOnly: true
+
+                    }} />)
+                    // render: rowData => <div>
+                    //     {rowData.cont1.split("|")[0]} <br /> {rowData.cont1.split("|")[1]}
+                    // </div>
+                }
             },
             // { field: "tel1", title: "เบอร์โทร 1", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
             // { field: "cont2", title: "ผู้ติดต่อ 2", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
@@ -116,7 +144,7 @@ class Testtable extends Component {
             },
             {
                 field: "ser_type", title: "ประเภทบริการ", render: rowData => {
-                    return (<CssTextField2 defaultValue={rowData.ser_type} inputProps={{
+                    return (<CssTextField3 defaultValue={rowData.ser_type} inputProps={{
                         readOnly: true
 
                     }} />)
@@ -126,7 +154,7 @@ class Testtable extends Component {
             //{ field: "month_alert_no", title: "จำนวนเดือนติดตาม", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
             {
                 field: "problem", title: "อาการที่พบ", render: rowData => {
-                    return (<CssTextField3 multiline={true} defaultValue={rowData.problem} inputProps={{
+                    return (<CssTextField4 multiline={true} defaultValue={rowData.problem} inputProps={{
                         readOnly: true
                     }} />)
                 }
@@ -142,7 +170,7 @@ class Testtable extends Component {
                         <Select value={rowData.alert_level}
                             onChange={this.handleChangeAlertLevel.bind(this)}
                             input={
-                                <OutlinedInput style={{ fontSize: '13px', width: '200px' }} name={"" + rowData.id} id="alertlevel" rowid={rowData.id} />
+                                <OutlinedInput style={{ fontSize: '13px', width: '180px' }} name={"" + rowData.id} id="alertlevel" rowid={rowData.id} />
                             }
                         >
                             {elements.map((value, index) => {
@@ -154,7 +182,7 @@ class Testtable extends Component {
             },
             {
                 field: "alert_detail", title: "รายละเอียดการแจ้งเตือน", render: rowData => {
-                    return (<CssTextField3 defaultValue={rowData.ser_type} inputProps={{
+                    return (<CssTextField4 multiline={true} defaultValue={rowData.alert_detail} inputProps={{
                         readOnly: true
                     }} />)
                 }
@@ -166,17 +194,50 @@ class Testtable extends Component {
                     Object.keys(config.alert_status).forEach((key) => {
                         elements.push(key)
                     })
-                    return (
+                    var listFab = ""
+                    if (this.props.tab_no == 1 || this.props.tab_no == 2) {
+                        listFab = <div>
+                            <Tooltip title="กลับไปค่าเริ่มต้น">
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"-1")} aria-label="add" style={{ color: 'white', background: '#424242', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <UndoIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="ติดตามงานบริการ (ไม่พบปัญหา)" >
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"ติดตามงานบริการ (ไม่พบปัญหา)")} aria-label="add" style={{ color: 'white', background: '#26a69a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <DoneIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="ติดตามงานบริการ (พบปัญหา)">
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"ติดตามงานบริการ (พบปัญหา)")} aria-label="add" style={{ color: 'white', background: '#f44336', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <CallMissedOutgoingIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="ลูกค้าไม่รับสาย/ไม่สะดวกคุย">
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"ลูกค้าไม่รับสาย/ไม่สะดวกคุย")} aria-label="add" style={{ color: 'white', background: '#546e7a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <PhoneMissedIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="เลิกติดตาม">
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"เลิกติดตาม")} aria-label="add" style={{ color: 'white', background: '#b71c1c', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <BlockIcon />
+                                </Fab>
+                            </Tooltip>
+                        </div>
+                    }
+                    return (<div>
                         <Select value={rowData.alert_status}
                             onChange={this.handleChangeAlertStatus.bind(this)}
                             input={
-                                <OutlinedInput style={{ fontSize: '13px', width: '200px' }} name={"" + rowData.id} id="alertstatus" rowid={rowData.id} />
+                                <OutlinedInput style={{ fontSize: '13px', width: '220px', height: '35px' }} name={"" + rowData.id} id="alertstatus" rowid={rowData.id} />
                             }
                         >
                             {elements.map((value, index) => {
                                 return <MenuItem style={{ fontSize: '13px' }} key={index} value={value}>{value}</MenuItem>
                             })}
                         </Select>
+                        {(listFab)? listFab: ""}
+
+                    </div>
                     )
                 }
             },
@@ -184,8 +245,8 @@ class Testtable extends Component {
                 field: "remark", title: "หมายเหตุ", cellStyle: { textAlign: "center", fontSize: '13px', width: 1000 },
                 render: rowData => {
                     return (
-                        <CssTextField3 multiline={true} defaultValue={rowData.remark}
-                            id={""+rowData.id}
+                        <CssTextField4 multiline={true} defaultValue={rowData.remark}
+                            id={"" + rowData.id}
                             onBlur={this.onBlurTextAreaHandler.bind(this)}
                         />
                         //     <TextareaAutosize style={{ border: '0', backgroundColor: (rowData.updFlag) ? '#bfefff' : '#FFF', fontSize: '13px' }}
@@ -199,6 +260,25 @@ class Testtable extends Component {
             //{ field: "issueType", title: "Task Type", editor: IssueTypeEditor }
         ]
     }
+
+    handleClickAlertStatus = (rowData,alertStatus) => {
+        console.log(rowData)
+        console.log(alertStatus)
+
+        let data = cloneDeep(this.state.data);
+        
+        let rowID = parseInt(rowData.id)
+        console.log(rowID - 1)
+        if(alertStatus =="-1"){
+            let fdata = cloneDeep(this.state.firstData); 
+            data[rowID - 1].alert_status = fdata[rowID - 1].alert_status 
+        }else{
+            
+            data[rowID - 1].alert_status = alertStatus
+        }
+        
+        this.checkUpdate(rowID - 1, data[rowID - 1])
+    };
 
     handleChangeAlertLevel = (e) => {
         let data = cloneDeep(this.state.data);
@@ -224,7 +304,7 @@ class Testtable extends Component {
         let data = cloneDeep(this.state.data);
 
         data[parseInt(e.target.id) - 1].remark = e.target.value
-        this.checkUpdate(parseInt(e.target.id)- 1, data[parseInt(e.target.id) - 1])
+        this.checkUpdate(parseInt(e.target.id) - 1, data[parseInt(e.target.id) - 1])
     }
 
     componentDidMount() {
@@ -238,9 +318,16 @@ class Testtable extends Component {
             || fdata[index].alert_status != newData.alert_status
             || fdata[index].remark != newData.remark) {
             newData.updFlag = true
-
+            this.updatelist.push(index)
+            console.log(this.updatelist)
         } else {
             newData.updFlag = false
+            for( var i = 0; i < this.updatelist.length; i++){ 
+                if ( this.updatelist[i] === index) {
+                    this.updatelist.splice(i, 1); 
+                }
+             }
+             console.log(this.updatelist)
         }
         console.log(newData)
         data[index] = newData;
@@ -249,10 +336,10 @@ class Testtable extends Component {
 
     getData() {
         console.log("b4 setState", this.state.data, this.props.tab_no)
-        var url = 'http://localhost:8788/alertlist'
+        var url = 'http://localhost:8788/alertlist/fix7day'
 
         if (this.props.tab_no == "2") {
-            url = 'http://localhost:8788/alertlist'
+            url = 'http://localhost:8788/alertlist/km7day'
         }
         axios.get(url)
             //.then(response => this.setState({rows}))
@@ -262,9 +349,17 @@ class Testtable extends Component {
                     response.data.map((onedata) => {
                         response.data[i - 1].id = i
                         response.data[i - 1].updFlag = false
-                        response.data[i - 1].cont1 = response.data[i - 1].cont1 + " [" + response.data[i - 1].tel1 + "]"
+                        if (response.data[i - 1].cont1) {
+                            response.data[i - 1].cont1 = "1." + response.data[i - 1].cont1 + " " + response.data[i - 1].tel1
+                        } else {
+                            response.data[i - 1].cont1 = "1." + response.data[i - 1].tel1
+                        }
+
                         if (response.data[i - 1].cont2) {
-                            response.data[i - 1].cont1 = response.data[i - 1].cont1 + "|" + response.data[i - 1].cont2 + " [" + response.data[i - 1].tel2 + "]"
+                            response.data[i - 1].cont1 = response.data[i - 1].cont1 + "\n2." + response.data[i - 1].cont2 + " " + response.data[i - 1].tel2 + ""
+                        }
+                        if (response.data[i - 1].cont1 == "1.") {
+                            response.data[i - 1].cont1 = ""
                         }
                         i = i + 1
                     })
@@ -284,20 +379,32 @@ class Testtable extends Component {
                     columns={this.col}
                     data={this.state.data}
                     title={title}
-                    onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
+                    //onRowClick={((evt, selectedRow) => this.setState({ selectedRow }))}
                     options={{
                         headerStyle: {
                             fontSize: '15px',
                             textAlign: 'center',
                             padding: '20px'
                         },
+                        pageSize: 10,
                         showTitle: true,
                         exportButton: true,
                         rowStyle: rowData => ({
-                            backgroundColor: (rowData.updFlag) ? '#bfefff' : '#FFF'
+                            backgroundColor: (rowData.updFlag) ? '#eeeeee' : '#FFF'
                         })
                     }}
-
+                    components={{
+                        Toolbar: props => (
+                            <div>
+                                <MTableToolbar {...props}/>
+                                <div style={{ padding: '0px 10px' }}>
+                                    <Button disabled={(this.updatelist.length > 0)?false:true} size="large" variant="contained" style={{ color: 'white', background: (this.updatelist.length > 0) ? '#26a69a': '#e0e0e0', marginTop: '1rem', marginLeft: '1rem' }}>
+                                        บันทึกข้อมูลทั้งหมด
+                                </Button>
+                                </div>
+                            </div>
+                        ),
+                    }}
                 // editable={{
                 //     onRowUpdate: (newData, oldData) =>
                 //         new Promise(resolve => {
