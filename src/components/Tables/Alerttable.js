@@ -336,10 +336,10 @@ class Testtable extends Component {
 
     getData() {
         console.log("b4 setState", this.state.data, this.props.tab_no)
-        var url = 'http://localhost:8788/alertlist/fix7day'
+        var url = 'http://157.230.249.126:8788/alertlist/fix7day'
 
         if (this.props.tab_no == "2") {
-            url = 'http://localhost:8788/alertlist/km7day'
+            url = 'http://157.230.249.126:8788/alertlist/km7day'
         }
         axios.get(url)
             //.then(response => this.setState({rows}))

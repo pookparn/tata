@@ -11,13 +11,23 @@ module.exports = function () {
                                 out_dt: { "$lte": lastWeek },
                                 $or: [{ alert_status: "ยังไม่ได้แจ้งเตือน" }, { alert_status: "ลูกค้าไม่รับสาย/ไม่สะดวกคุย" }]
                         }
+
                         if (type == "km7day") {
                                 queryCon = {
                                         service_type: "เช็คระยะ" ,
                                         out_dt: { "$lte": lastWeek },
                                         $or: [{ alert_status: "ยังไม่ได้แจ้งเตือน" }, { alert_status: "ลูกค้าไม่รับสาย/ไม่สะดวกคุย" }]
                                 }
+                        }else if(type == "km"){
+                                var specDay = new Date();
+                                specDay.setDate(lastWeek.getDate() - 7);
+                                queryCon = {
+                                        service_type: "เช็คระยะ" ,
+                                        out_dt: { "$lte": lastWeek },
+                                        alert_status :{ "$ne" : "แจ้งทราบแล้ว"}
+                                }
                         }
+
                         mgs_mod.servicehist.find(queryCon)
                                 .populate("owner_id car_id")
                                 .lean()
