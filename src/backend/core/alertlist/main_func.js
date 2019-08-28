@@ -23,7 +23,7 @@ module.exports = function () {
                                 specDay.setDate(lastWeek.getDate() - 7);
                                 queryCon = {
                                         service_type: "เช็คระยะ" ,
-                                        out_dt: { "$lte": lastWeek },
+                                       // out_dt: { "$lte": lastWeek },
                                         alert_status :{ "$ne" : "แจ้งทราบแล้ว"}
                                 }
                         }
