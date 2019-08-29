@@ -223,6 +223,29 @@ class Testtable extends Component {
                                 </Fab>
                             </Tooltip>
                         </div>
+                    }else{
+                        listFab = <div>
+                            <Tooltip title="กลับไปค่าเริ่มต้น">
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"-1")} aria-label="add" style={{ color: 'white', background: '#424242', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <UndoIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="แจ้งทราบแล้ว" >
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"แจ้งทราบแล้ว")} aria-label="add" style={{ color: 'white', background: '#26a69a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <DoneIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="ลูกค้าไม่รับสาย/ไม่สะดวกคุย">
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"ลูกค้าไม่รับสาย/ไม่สะดวกคุย")} aria-label="add" style={{ color: 'white', background: '#546e7a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <PhoneMissedIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="เลิกติดตาม">
+                                <Fab onClick={this.handleClickAlertStatus.bind(this,rowData,"เลิกติดตาม")} aria-label="add" style={{ color: 'white', background: '#b71c1c', marginTop: '0.5rem', width: '35px', height: '35px' }}>
+                                    <BlockIcon />
+                                </Fab>
+                            </Tooltip>
+                        </div>
                     }
                     return (<div>
                         <Select value={rowData.alert_status}
@@ -336,10 +359,16 @@ class Testtable extends Component {
 
     getData() {
         console.log("b4 setState", this.state.data, this.props.tab_no)
-        var url = 'http://157.230.249.126:8788/alertlist/fix7day'
-
+        var ip = 'localhost'
+        console.log(">>>>",process.env)
+        var url = 'http://'+ip+':8788/alertlist/fix7day'
+        if(process.env.REACT_APP_SERV !== "dev"){
+            ip = "157.230.249.126"
+        }
         if (this.props.tab_no == "2") {
-            url = 'http://157.230.249.126:8788/alertlist/km7day'
+            url = 'http://'+ip+':8788/alertlist/km7day'
+        }else if(this.props.tab_no == "3"){
+            url = 'http://'+ip+':8788/alertlist/km'
         }
         axios.get(url)
             //.then(response => this.setState({rows}))

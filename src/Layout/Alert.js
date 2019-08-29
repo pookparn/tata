@@ -27,6 +27,9 @@ class Alert extends React.Component {
         <div style={{ marginLeft: '1rem', marginTop: '1.5rem' }}>
           <Testtable alert_type="งานเช็คระยะ (7 วัน)" tab_no="2" />
         </div>
+        <div style={{ marginLeft: '1rem', marginTop: '1.5rem' }}>
+          <Testtable alert_type="เช็คระยะ" tab_no="3" />
+        </div>
         {/* <div style={{ marginLeft: '1rem', marginTop: '1.5rem' }}>
           <Onetable alert_type="งานเช็คระยะ (7 วัน)" testdata={this.state.rows2} />
         </div>  */}
