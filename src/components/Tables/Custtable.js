@@ -84,7 +84,7 @@ let CssTextField4 = withStyles(theme => ({
     },
 }))(InputBase);
 
-class Testtable extends Component {
+class Custtable extends Component {
     constructor(props) {
         super(props);
 
@@ -554,4 +554,4 @@ class Testtable extends Component {
     }
 }
 
-export default Testtable
+export default Custtable

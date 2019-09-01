@@ -37,7 +37,7 @@ var ownerSchema = new Schema({
         "percent_discount": Number,
         "remark": String
 
-}, { collection: "owner", versionKey:false })
+}, { collection: "owner", versionKey: false })
 module.exports.owner = mongoose.model('owner', ownerSchema)
 
 var carSchema = new Schema({
@@ -54,10 +54,10 @@ var carSchema = new Schema({
         "create_dt": Date,
         "update_dt": Date,
         "update_by": Date,
-        "roof" : String,
-        "finance_year" :Number,
-        "finance_down" : String
-}, { collection: "car", versionKey:false })
+        "roof": String,
+        "finance_year": Number,
+        "finance_down": String
+}, { collection: "car", versionKey: false })
 module.exports.car = mongoose.model('car', carSchema)
 
 var servicehistSchema = new Schema({
@@ -80,8 +80,18 @@ var servicehistSchema = new Schema({
         "create_dt": Date,
         "update_dt": Date,
         "update_by": String,
-        "remark": String
-}, { collection: "service_history" , versionKey:false})
+        "remark": String,
+        "update_hist": [{
+                "alert_lv": String,
+                "remark" : String,
+                "alert_status": String,
+                "old_alert_lv": String,
+                "old_remark" : String,
+                "old_alert_status": String,
+                "update_dt": Date,
+                "update_by": String
+        }]
+}, { collection: "service_history", versionKey: false })
 module.exports.servicehist = mongoose.model('servicehist', servicehistSchema)
 
 

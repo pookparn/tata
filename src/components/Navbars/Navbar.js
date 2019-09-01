@@ -23,10 +23,10 @@ const NavBar = () => {
         <div>
         <AppBar position="static" style={{ background: '#0277bd'}}>
             <Toolbar>
-                <Button color="inherit" href="/" className={classes.button}>
+                <Button color="inherit" href="/Alert" className={classes.button}>
                     รายการติดตาม
                 </Button>
-                <Button color="inherit" href="/users" className={classes.button}>
+                <Button color="inherit" href="/Customer" className={classes.button}>
                     ข้อมูลลูกค้า
                 </Button>
                 <Button color="inherit" href="/contact" className={classes.button}>

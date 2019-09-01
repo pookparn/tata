@@ -1,9 +1,6 @@
 import React from 'react'
 import NavBar from '../components/Navbars/Navbar'
-//import Maintable from '../components/Tables/Maintable'
-
-
-import Testtable from '../components/Tables/Alerttable'
+import Alerttable from '../components/Tables/Alerttable'
 
 
 class Alert extends React.Component {
@@ -22,27 +19,14 @@ class Alert extends React.Component {
       <div >
         <NavBar />
         <div style={{ marginLeft: '1rem', marginTop: '1rem' }}>
-          <Testtable alert_type="งานซ่อม  (7 วัน)" tab_no="1" />
+          <Alerttable alert_type="งานซ่อม  (7 วัน)" tab_no="1" />
         </div>
         <div style={{ marginLeft: '1rem', marginTop: '1.5rem' }}>
-          <Testtable alert_type="งานเช็คระยะ (7 วัน)" tab_no="2" />
+          <Alerttable alert_type="งานเช็คระยะ (7 วัน)" tab_no="2" />
         </div>
         <div style={{ marginLeft: '1rem', marginTop: '1.5rem' }}>
-          <Testtable alert_type="เช็คระยะ" tab_no="3" />
+          <Alerttable alert_type="เช็คระยะ" tab_no="3" />
         </div>
-        {/* <div style={{ marginLeft: '1rem', marginTop: '1.5rem' }}>
-          <Onetable alert_type="งานเช็คระยะ (7 วัน)" testdata={this.state.rows2} />
-        </div>  */}
-        {/* <div style={{ marginLeft : '1rem', marginTop : '1.5rem'}}>
-            <Maintable alert_type="งานซ่อม  (7 วัน)"/>
-        </div>
-        
-        <div style={{ marginLeft : '1rem', marginTop : '1.5rem'}}>
-            <Maintable alert_type="งานเช็คระยะ (7 วัน)"/>
-        </div>
-        <div style={{ marginLeft : '1rem', marginTop : '1.5rem'}}>
-            <Maintable alert_type="เช็คระยะ"/>
-        </div> */}
       </div>
     )
   }
