@@ -205,7 +205,8 @@ class Testtable extends Component {
                         elements.push(key)
                     })
                     var listFab = ""
-                    if (this.props.tab_no === 1 || this.props.tab_no === 2) {
+                    if (this.props.tab_no == 1 || this.props.tab_no == 2) {
+                        
                         listFab = <div>
                             <Tooltip title="กลับไปค่าเริ่มต้น">
                                 <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "-1")} aria-label="add" style={{ color: 'white', background: '#424242', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
@@ -325,7 +326,7 @@ class Testtable extends Component {
         })
         console.log(response)
         console.log("end")
-        if (response.data.code === 0) {
+        if (response.data.code == 0) {
             this.handleDialogOpen(2)
         }
     }
@@ -337,7 +338,7 @@ class Testtable extends Component {
 
         let rowID = parseInt(rowData.id)
         console.log(rowID - 1)
-        if (alertStatus === "-1") {
+        if (alertStatus == "-1") {
             let fdata = cloneDeep(this.state.firstData);
             data[rowID - 1].alert_status = fdata[rowID - 1].alert_status
         } else {
@@ -383,7 +384,7 @@ class Testtable extends Component {
 
     handleDialogClose = (dtype) => {
         console.log("handleDialogClose", dtype)
-        if (dtype === 2) {
+        if (dtype == 2) {
             this.setState({ ...this.state, dialogResultOpen: false });
         } else {
             this.setState({ ...this.state, dialogOpen: false });
@@ -392,7 +393,7 @@ class Testtable extends Component {
 
     handleDialogOpen = (dtype) => {
         console.log("handleDialogOpen", dtype)
-        if (dtype === 2) {
+        if (dtype == 2) {
             this.setState({ ...this.state, dialogResultOpen: true });
         } else {
             this.setState({ ...this.state, dialogOpen: true });
@@ -416,7 +417,7 @@ class Testtable extends Component {
         } else {
             newData.updFlag = false
             for (var i = 0; i < this.updatelist.length; i++) {
-                if (this.updatelist[i] === index) {
+                if (this.updatelist[i] == index) {
                     this.updatelist.splice(i, 1);
                 }
             }
@@ -431,9 +432,9 @@ class Testtable extends Component {
         console.log("b4 setState", this.state.data, this.props.tab_no)
 
         var url = 'http://' + ip + ':8788/alertlist/fix7day'
-        if (this.props.tab_no === "2") {
+        if (this.props.tab_no == "2") {
             url = 'http://' + ip + ':8788/alertlist/km7day'
-        } else if (this.props.tab_no === "3") {
+        } else if (this.props.tab_no == "3") {
             url = 'http://' + ip + ':8788/alertlist/km'
         }
         let response = await axios.get(url)
@@ -453,7 +454,7 @@ class Testtable extends Component {
                 if (response.data[i - 1].cont2) {
                     response.data[i - 1].cont1 = response.data[i - 1].cont1 + "\n2." + response.data[i - 1].cont2 + " " + response.data[i - 1].tel2 + ""
                 }
-                if (response.data[i - 1].cont1 === "1.") {
+                if (response.data[i - 1].cont1 == "1.") {
                     response.data[i - 1].cont1 = ""
                 }
                 i = i + 1
