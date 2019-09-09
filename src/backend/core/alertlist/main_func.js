@@ -90,7 +90,7 @@ module.exports = function () {
                                                                         km_out: onedata.service_out_km,
                                                                         month_alert_no: "month_alert_no",
                                                                         problem: onedata.service_fix_desc,
-                                                                        alert_level: onedata.alert_lv,
+                                                                        //alert_lv: onedata.alert_lv,
                                                                         alert_detail: onedata.alert_desc,
                                                                         alert_status: onedata.alert_status,
                                                                         remark: onedata.remark
@@ -124,15 +124,15 @@ module.exports = function () {
                                                 // `update: { $set: { title: ... } }` but mongoose adds $set for
                                                 // you.
                                                 update: {
-                                                        alert_lv: oneData.alert_level,
+                                                        //alert_lv: oneData.alert_lv,
                                                         alert_status: oneData.alert_status,
                                                         remark: oneData.remark,
                                                         $push: {
                                                                 update_hist: {
-                                                                        "alert_lv": oneData.alert_lv,
+                                                                        //"alert_lv": oneData.alert_lv,
                                                                         "remark": oneData.remark,
                                                                         "alert_status": oneData.alert_status,
-                                                                        "old_alert_lv": oneData.old_alert_lv,
+                                                                        //"old_alert_lv": oneData.old_alert_lv,
                                                                         "old_remark": oneData.old_remark,
                                                                         "old_alert_status": oneData.old_alert_status,
                                                                         "update_dt": new Date(),

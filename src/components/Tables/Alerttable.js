@@ -130,7 +130,7 @@ class Testtable extends Component {
                 }
             },
             {
-                field: "cont1", title: "ผู้ติดต่อ", cellStyle: { textAlign: "left", fontSize: '13px', width: 1500 }, editable: 'never',
+                field: "cont1", title: "ผู้ติดต่อ", cellStyle: { textAlign: "left", fontSize: '13px', width: 100 }, editable: 'never',
                 render: rowData => {
                     return (<CssTextField4 multiline={true} defaultValue={rowData.cont1} inputProps={{
                         readOnly: true
@@ -169,27 +169,27 @@ class Testtable extends Component {
                     }} />)
                 }
             },
-            {
-                field: "alert_level", title: "การแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px' },
-                render: rowData => {
-                    let elements = []
-                    Object.keys(config.alert_level).forEach((key) => {
-                        elements.push(key)
-                    })
-                    return (
-                        <Select value={rowData.alert_level}
-                            onChange={this.handleChangeAlertLevel.bind(this)}
-                            input={
-                                <OutlinedInput style={{ fontSize: '13px', width: '180px' }} name={"" + rowData.id} id="alertlevel" rowid={rowData.id} />
-                            }
-                        >
-                            {elements.map((value, index) => {
-                                return <MenuItem style={{ fontSize: '13px' }} key={index} value={value}>{value}</MenuItem>
-                            })}
-                        </Select>
-                    )
-                }
-            },
+            // {
+            //     field: "alert_lv", title: "การแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px' },
+            //     render: rowData => {
+            //         let elements = []
+            //         Object.keys(config.alert_lv).forEach((key) => {
+            //             elements.push(key)
+            //         })
+            //         return (
+            //             <Select value={rowData.alert_lv}
+            //                 onChange={this.handleChangeAlertLevel.bind(this)}
+            //                 input={
+            //                     <OutlinedInput style={{ fontSize: '13px', width: '180px' }} name={"" + rowData.id} id="alertlevel" rowid={rowData.id} />
+            //                 }
+            //             >
+            //                 {elements.map((value, index) => {
+            //                     return <MenuItem style={{ fontSize: '13px' }} key={index} value={value}>{value}</MenuItem>
+            //                 })}
+            //             </Select>
+            //         )
+            //     }
+            // },
             {
                 field: "alert_detail", title: "รายละเอียดการแจ้งเตือน", render: rowData => {
                     return (<CssTextField4 multiline={true} defaultValue={rowData.alert_detail} inputProps={{
@@ -308,10 +308,10 @@ class Testtable extends Component {
                 
                 arrUpd.push({
                     _id:oneData._id,
-                    alert_lv: oneData.alert_level,
+                    //alert_lv: oneData.alert_lv,
                     alert_status: oneData.alert_status,
                     remark: oneData.remark,
-                    old_alert_lv : fdata[oneData.id-1].alert_level,
+                    //old_alert_lv : fdata[oneData.id-1].alert_lv,
                     old_alert_status : fdata[oneData.id-1].alert_status,
                     old_remark : fdata[oneData.id-1].remark
                 })
@@ -355,7 +355,7 @@ class Testtable extends Component {
         let rowID = parseInt(e.target.name)
         console.log(e.target)
         console.log(rowID - 1)
-        data[rowID - 1].alert_level = e.target.value
+        data[rowID - 1].alert_lv = e.target.value
         this.checkUpdate(rowID - 1, data[rowID - 1])
     };
 
@@ -408,8 +408,8 @@ class Testtable extends Component {
     checkUpdate = (index, newData) => {
         let data = cloneDeep(this.state.data);
         let fdata = cloneDeep(this.state.firstData);
-        if (fdata[index].alert_level !== newData.alert_level
-            || fdata[index].alert_status !== newData.alert_status
+        if (fdata[index].alert_status !== newData.alert_status  //  || fdata[index].alert_lv !== newData.alert_lv
+           
             || fdata[index].remark !== newData.remark) {
             newData.updFlag = true
             this.updatelist.push(index)

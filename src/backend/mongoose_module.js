@@ -82,10 +82,10 @@ var servicehistSchema = new Schema({
         "update_by": String,
         "remark": String,
         "update_hist": [{
-                "alert_lv": String,
+                //"alert_lv": String,
                 "remark" : String,
                 "alert_status": String,
-                "old_alert_lv": String,
+                //"old_alert_lv": String,
                 "old_remark" : String,
                 "old_alert_status": String,
                 "update_dt": Date,

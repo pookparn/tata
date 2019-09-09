@@ -64,10 +64,10 @@ let CssTextField2 = withStyles(theme => ({
 
 let CssTextField3 = withStyles(theme => ({
     input: {
-        width: '200px',
+        width: '400px',
         fontSize: 14,
         position: 'relative',
-        textAlign: 'center',
+        textAlign: 'left',
         color: 'transpalent',
 
     },
@@ -75,7 +75,7 @@ let CssTextField3 = withStyles(theme => ({
 
 let CssTextField4 = withStyles(theme => ({
     input: {
-        width: '230px',
+        width: '300px',
         fontSize: 14,
         position: 'relative',
         textAlign: 'left',
@@ -98,180 +98,65 @@ class Custtable extends Component {
         this.updatelist = []
         this.updateDetail = []
         this.col = [
-            { field: "id", title: "ลำดับ", cellStyle: { textAlign: "center", fontSize: '13px', width: 10 } },
+            { field: "id", title: "ลำดับ", cellStyle: { textAlign: "center", fontSize: '13px', width: 10 } }
+            ,
             {
-                field: "ser_out_dt", title: "วันที่รับรถ",
+                field: "business_name", title: "บริษัท", render: rowData => {
+                    return (<CssTextField4 multiline={true} defaultValue={rowData.business_name} inputProps={{readOnly: true}} />)
+                }
+            },
+            {
+                field: "owner_name", title: "เจ้าของ", render: rowData => {
+                    return (<CssTextField4 multiline={true} defaultValue={rowData.owner_name} inputProps={{readOnly: true}} />)      
+                }
+            },
+
+            {
+                field: "contname1", title: "ผู้ติดต่อ1", cellStyle: { textAlign: "center", fontSize: '13px', width: 500 }, editable: 'never',
                 render: rowData => {
-                    return (<CssTextField1 defaultValue={rowData.ser_out_dt} inputProps={{ readOnly: true }} />)
+                    return (<CssTextField2 multiline={true} defaultValue={rowData.contname1} inputProps={{ readOnly: true}} />)
                 }
             },
             {
-                field: "company", title: "บริษัท", render: rowData => {
-                    return (<CssTextField2 multiline={true} defaultValue={rowData.company} inputProps={{
-                        readOnly: true
-
-                    }} />)
-                }
-            },
-            {
-                field: "lice_pl", title: "ทะเบียน", render: rowData => {
-                    return (<CssTextField0 defaultValue={rowData.lice_pl} inputProps={{
-                        readOnly: true
-
-                    }} />)
-                }
-            },
-            {
-                field: "model", title: "รุ่นรถ", render: rowData => {
-                    return (<CssTextField2 defaultValue={rowData.model} inputProps={{
-                        readOnly: true
-
-                    }} />)
-                }
-            },
-            {
-                field: "cont1", title: "ผู้ติดต่อ", cellStyle: { textAlign: "left", fontSize: '13px', width: 1500 }, editable: 'never',
+                field: "conttel1", title: "เบอร์โทร1", cellStyle: { textAlign: "center", fontSize: '13px', width: 500 }, editable: 'never',
                 render: rowData => {
-                    return (<CssTextField4 multiline={true} defaultValue={rowData.cont1} inputProps={{
-                        readOnly: true
-
-                    }} />)
-                    // render: rowData => <div>
-                    //     {rowData.cont1.split("|")[0]} <br /> {rowData.cont1.split("|")[1]}
-                    // </div>
-                }
-            },
-            // { field: "tel1", title: "เบอร์โทร 1", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-            // { field: "cont2", title: "ผู้ติดต่อ 2", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-            // { field: "tel2", title: "เบอร์โทร 2", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-            {
-                field: "ser_fix_no", title: "ใบสั่งซ่อม", render: rowData => {
-                    return (<CssTextField0 defaultValue={rowData.ser_fix_no} inputProps={{
-                        readOnly: true
-
-                    }} />)
+                    return (<CssTextField2 multiline={true} defaultValue={rowData.conttel1} inputProps={{ readOnly: true}} />)
                 }
             },
             {
-                field: "ser_type", title: "ประเภทบริการ", render: rowData => {
-                    return (<CssTextField3 defaultValue={rowData.ser_type} inputProps={{
-                        readOnly: true
-
-                    }} />)
-                }
-            },
-            { field: "km_out", title: "เลขกิโลออก", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-            //{ field: "month_alert_no", title: "จำนวนเดือนติดตาม", cellStyle: { textAlign: "center", fontSize: '13px', width: 200 }, editable: 'never' },
-            {
-                field: "problem", title: "อาการที่พบ", render: rowData => {
-                    return (<CssTextField4 multiline={true} defaultValue={rowData.problem} inputProps={{
-                        readOnly: true
-                    }} />)
-                }
-            },
-            {
-                field: "alert_level", title: "การแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px' },
+                field: "contname2", title: "ผู้ติดต่อ2", cellStyle: { textAlign: "center", fontSize: '13px', width: 500 }, editable: 'never',
                 render: rowData => {
-                    let elements = []
-                    Object.keys(config.alert_level).forEach((key) => {
-                        elements.push(key)
-                    })
-                    return (
-                        <Select value={rowData.alert_level}
-                            onChange={this.handleChangeAlertLevel.bind(this)}
-                            input={
-                                <OutlinedInput style={{ fontSize: '13px', width: '180px' }} name={"" + rowData.id} id="alertlevel" rowid={rowData.id} />
-                            }
-                        >
-                            {elements.map((value, index) => {
-                                return <MenuItem style={{ fontSize: '13px' }} key={index} value={value}>{value}</MenuItem>
-                            })}
-                        </Select>
-                    )
+                    return (<CssTextField2 multiline={true} defaultValue={rowData.contname2} inputProps={{ readOnly: true}} />)
                 }
             },
             {
-                field: "alert_detail", title: "รายละเอียดการแจ้งเตือน", render: rowData => {
-                    return (<CssTextField4 multiline={true} defaultValue={rowData.alert_detail} inputProps={{
-                        readOnly: true
-                    }} />)
-                }
-            },
-            {
-                field: "alert_status", title: "สถานะการแจ้งเตือน", cellStyle: { textAlign: "center", fontSize: '13px' },  //lookup: config.alert_status
+                field: "conttel2", title: "เบอร์โทร2", cellStyle: { textAlign: "center", fontSize: '13px', width: 500 }, editable: 'never',
                 render: rowData => {
-                    let elements = []
-                    Object.keys(config.alert_status).forEach((key) => {
-                        elements.push(key)
-                    })
-                    var listFab = ""
-                    if (this.props.tab_no === 1 || this.props.tab_no === 2) {
-                        listFab = <div>
-                            <Tooltip title="กลับไปค่าเริ่มต้น">
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "-1")} aria-label="add" style={{ color: 'white', background: '#424242', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <UndoIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="ติดตามงานบริการ (ไม่พบปัญหา)" >
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "ติดตามงานบริการ (ไม่พบปัญหา)")} aria-label="add" style={{ color: 'white', background: '#26a69a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <DoneIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="ติดตามงานบริการ (พบปัญหา)">
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "ติดตามงานบริการ (พบปัญหา)")} aria-label="add" style={{ color: 'white', background: '#f44336', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <CallMissedOutgoingIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="ลูกค้าไม่รับสาย/ไม่สะดวกคุย">
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "ลูกค้าไม่รับสาย/ไม่สะดวกคุย")} aria-label="add" style={{ color: 'white', background: '#546e7a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <PhoneMissedIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="เลิกติดตาม">
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "เลิกติดตาม")} aria-label="add" style={{ color: 'white', background: '#b71c1c', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <BlockIcon />
-                                </Fab>
-                            </Tooltip>
-                        </div>
-                    } else {
-                        listFab = <div>
-                            <Tooltip title="กลับไปค่าเริ่มต้น">
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "-1")} aria-label="add" style={{ color: 'white', background: '#424242', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <UndoIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="แจ้งทราบแล้ว" >
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "แจ้งทราบแล้ว")} aria-label="add" style={{ color: 'white', background: '#26a69a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <DoneIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="ลูกค้าไม่รับสาย/ไม่สะดวกคุย">
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "ลูกค้าไม่รับสาย/ไม่สะดวกคุย")} aria-label="add" style={{ color: 'white', background: '#546e7a', marginRight: '0.5rem', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <PhoneMissedIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="เลิกติดตาม">
-                                <Fab onClick={this.handleClickAlertStatus.bind(this, rowData, "เลิกติดตาม")} aria-label="add" style={{ color: 'white', background: '#b71c1c', marginTop: '0.5rem', width: '35px', height: '35px' }}>
-                                    <BlockIcon />
-                                </Fab>
-                            </Tooltip>
-                        </div>
-                    }
-                    return (<div>
-                        <Select value={rowData.alert_status}
-                            onChange={this.handleChangeAlertStatus.bind(this)}
-                            input={
-                                <OutlinedInput style={{ fontSize: '13px', width: '220px', height: '35px' }} name={"" + rowData.id} id="alertstatus" rowid={rowData.id} />
-                            }
-                        >
-                            {elements.map((value, index) => {
-                                return <MenuItem style={{ fontSize: '13px' }} key={index} value={value}>{value}</MenuItem>
-                            })}
-                        </Select>
-                        {(listFab) ? listFab : ""}
-
-                    </div>
-                    )
+                    return (<CssTextField2 multiline={true} defaultValue={rowData.conttel2} inputProps={{ readOnly: true}} />)
+                }
+            },
+            {
+                field: "addr_no", title: "ที่อยู่", cellStyle: { textAlign: "left", fontSize: '13px', width: 500 }, editable: 'never',
+                render: rowData => {
+                    return (<CssTextField3 multiline={true} defaultValue={rowData.addr_no} inputProps={{ readOnly: true}} />)
+                }
+            },
+            {
+                field: "addr_dist", title: "อำเภอ/เขต", cellStyle: { textAlign: "center", fontSize: '13px', width: 500 }, editable: 'never',
+                render: rowData => {
+                    return (<CssTextField2 multiline={true} defaultValue={rowData.addr_dist} inputProps={{ readOnly: true}} />)
+                }
+            },
+            {
+                field: "addr_prov", title: "จังหวัด", cellStyle: { textAlign: "center", fontSize: '13px', width: 500 }, editable: 'never',
+                render: rowData => {
+                    return (<CssTextField2 multiline={true} defaultValue={rowData.addr_prov} inputProps={{ readOnly: true}} />)
+                }
+            },
+            {
+                field: "addr_post", title: "รหัสไปรษณีย์", cellStyle: { textAlign: "center", fontSize: '13px', width: 500 }, editable: 'never',
+                render: rowData => {
+                    return (<CssTextField1 multiline={true} defaultValue={rowData.addr_post} inputProps={{ readOnly: true}} />)
                 }
             },
             {
@@ -401,7 +286,7 @@ class Custtable extends Component {
     }
 
     componentDidMount() {
-        this.getData(this.props.tab_no)
+        this.getData()
     }
 
     checkUpdate = (index, newData) => {
@@ -430,13 +315,10 @@ class Custtable extends Component {
     async getData() {
         console.log("b4 setState", this.state.data, this.props.tab_no)
 
-        var url = 'http://' + ip + ':8788/alertlist/fix7day'
-        if (this.props.tab_no === "2") {
-            url = 'http://' + ip + ':8788/alertlist/km7day'
-        } else if (this.props.tab_no === "3") {
-            url = 'http://' + ip + ':8788/alertlist/km'
-        }
+        var url = 'http://' + ip + ':8788/customer'
+
         let response = await axios.get(url)
+        console.log(response.data)
         //.then(response => this.setState({rows}))
         //.then(response => {
         if (response.data.length > 0) {
@@ -444,18 +326,7 @@ class Custtable extends Component {
             response.data.forEach((onedata) => {
                 response.data[i - 1].id = i
                 response.data[i - 1].updFlag = false
-                if (response.data[i - 1].cont1) {
-                    response.data[i - 1].cont1 = "1." + response.data[i - 1].cont1 + " " + response.data[i - 1].tel1
-                } else {
-                    response.data[i - 1].cont1 = "1." + response.data[i - 1].tel1
-                }
-
-                if (response.data[i - 1].cont2) {
-                    response.data[i - 1].cont1 = response.data[i - 1].cont1 + "\n2." + response.data[i - 1].cont2 + " " + response.data[i - 1].tel2 + ""
-                }
-                if (response.data[i - 1].cont1 === "1.") {
-                    response.data[i - 1].cont1 = ""
-                }
+                
                 i = i + 1
             })
         }

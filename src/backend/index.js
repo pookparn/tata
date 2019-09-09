@@ -6,6 +6,7 @@ const app = require('express')(),
 //const app = express();
 
 const alertlist = require('./core/alertlist/index.js');
+const customer = require('./core/customer/index.js');
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/alertlist', alertlist)
+app.use('/customer', customer)
 
 app.get('/', function (req, res) {
     res.send('<h1>Hello Node.js</h1>');
